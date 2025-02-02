@@ -71,23 +71,106 @@
 // person.sayMyName();
 
 //explicit binding
-globalThis.name = 'Superman';
-function sayMyName() {
-    console.log(`My name is  ${this.name}`);
-}
-sayMyName.call(person);
+// globalThis.name = 'Superman';
+// function sayMyName() {
+//     console.log(`My name is  ${this.name}`);
+// }
+// sayMyName.call(person);
 
-function person(name)
-{
-    //this = {}
-    this.name = name;
-}
+// function person(name)
+// {
+//     //this = {}
+//     this.name = name;
+// }
 
 //constructor function
-const p1 = new person('Shubham');
-const p2 = new person('Superman');
+// const p1 = new person('Shubham');
+// const p2 = new person('Superman');
 
-console.log(p1.name, p2.name);
-sayMyName();
+// console.log(p1.name, p2.name);
+// sayMyName();
 
 //protoype
+// function person(firstName, lastName){
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+// }
+
+// const p1 = new person('Bruce', 'Wayne');
+// const p2 = new person('Clark', 'Kent');
+
+// person.prototype.getFullName = function() {
+//     return this.firstName + ' ' + this.lastName;
+// }
+
+// console.log(p1.getFullName());
+// console.log(p2.getFullName());
+
+// function SuperHero(fName, lName) {
+//     person.call(this, fName,lName)
+//     this.isSuperHero = true;
+// }
+
+// SuperHero.prototype.fightCrime = function() {
+//     console.log('Fighting crime');
+// }
+
+// SuperHero.prototype = Object.create(person.prototype);
+// SuperHero.prototype.constructor = SuperHero
+// const batman = new SuperHero('Bruce','Wayne');
+// console.log(batman.getFullName());
+
+//class
+// class Person {
+//     constructor(fName, lName){
+//         this.firstName = fName;
+//         this.lastName = lName;
+//     }
+
+//     sayMyName() {
+//         return this.firstName + ' ' + this.lastName;
+//     }
+// }
+
+// const classP1 = new Person('Bruce','Wayne');
+
+// console.log(classP1.sayMyName());
+
+// class SuperHero extends Person {
+//     constructor(fName, lName){
+//         super(fName,lName);
+//         this.isSuperHero = true;
+//     }
+
+//     fightCrime(){
+//         console.log('fighting crime');
+//     }
+// }
+
+// const batman = new SuperHero('Bruce','Wayne');
+// console.log(batman.sayMyName());
+// batman.fightCrime();
+
+//iteration
+
+const obj = {
+    [Symbol.iterator]: function() {
+        let step = 0;
+        const iterator = {
+            next: function() {
+                step++;
+                if(step === 1){
+                    return {value:'Hello',done:false}
+                }else if(step === 2) {
+                    return {value:'World', done: false}
+                }
+                return {value:undefined, done: true};
+            },
+        };
+        return iterator;
+    }
+};
+
+for(const word of obj){
+    console.log(word);
+}
